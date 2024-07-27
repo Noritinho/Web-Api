@@ -1,3 +1,4 @@
+using Application;
 using Infrastructure;
 using Infrastructure.Data.Migrations;
 
@@ -10,6 +11,7 @@ builder.Services.AddControllers();
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddApplication();
 
 var app = builder.Build();
 
@@ -29,6 +31,7 @@ app.MapControllers();
 await MigrateDatabase();
 
 app.Run();
+return;
 
 async Task MigrateDatabase()
 {
