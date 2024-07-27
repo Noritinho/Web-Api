@@ -12,7 +12,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Infrastructure.Data.Migrations
 {
     [DbContext(typeof(FinancesDbContext))]
-    [Migration("20240726033138_User")]
+    [Migration("20240727011117_User")]
     partial class User
     {
         /// <inheritdoc />
@@ -51,8 +51,12 @@ namespace Infrastructure.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("UserType")
-                        .HasColumnType("integer");
+                    b.Property<Guid>("UserIdentifier")
+                        .HasColumnType("uuid");
+
+                    b.Property<string>("UserRole")
+                        .IsRequired()
+                        .HasColumnType("text");
 
                     b.Property<string>("Username")
                         .IsRequired()

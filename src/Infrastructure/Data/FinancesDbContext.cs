@@ -5,5 +5,5 @@ namespace Infrastructure.Data;
 
 internal class FinancesDbContext(DbContextOptions options) : DbContext(options)
 {
-    public DbSet<User> Users { get; init; }
+    public DbSet<User> Users { get; set; }
 }
