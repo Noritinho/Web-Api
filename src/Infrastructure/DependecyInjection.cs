@@ -1,3 +1,4 @@
+using Domain.Repositories;
 using Domain.Repositories.User;
 using Infrastructure.Data;
 using Infrastructure.Data.Interceptors;
@@ -35,8 +36,12 @@ public static class DependencyInjection
     private static void AddRepositories(IServiceCollection services)
     {
         services.AddScoped<ISaveChangesInterceptor, AuditableEntityInterceptor>();
+        
         services.AddScoped<IUnitOfWork, UnitOfWork>();
+        
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
+        services.AddScoped<IUserReadOnlyRepository, UserRepository>();
+        
         services.AddSingleton(TimeProvider.System);
     }
 }

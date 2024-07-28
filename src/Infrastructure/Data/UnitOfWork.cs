@@ -1,3 +1,4 @@
+using Domain.Repositories;
 using Domain.Repositories.User;
 
 namespace Infrastructure.Data;
