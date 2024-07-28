@@ -1,4 +1,5 @@
 using Application.UseCases.Users.Register;
+using Contracts.Communication.Errors.Responses;
 using Contracts.Communication.Users.Requests;
 using Contracts.Communication.Users.Responses;
 using Microsoft.AspNetCore.Mvc;
@@ -11,6 +12,7 @@ public class UsersController : ControllerBase
 {
     [HttpPost]
     [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status201Created)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status400BadRequest)]
     public async Task<IActionResult> Register(
         [FromServices] IRegisterUserUseCase useCase,
         [FromBody] RequestRegisterUserJson request)
