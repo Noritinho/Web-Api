@@ -5,6 +5,7 @@ using Domain.Entities;
 using Domain.Repositories;
 using Domain.Repositories.User;
 using Domain.Security.Cryptography;
+using Domain.Security.Tokens;
 using Exceptions.ExceptionsBase;
 
 namespace Application.UseCases.Users.Register;
@@ -14,6 +15,7 @@ public class RegisterUserUseCase (
     IUserWriteOnlyRepository userWriteOnlyRepository,
     IUserReadOnlyRepository userReadOnlyRepository,
     IPasswordEncripter passwordEncripter,
+    IAccessTokenGenerator accessTokenGenerator,
     IUnitOfWork unitOfWork) : IRegisterUserUseCase
 {
 
@@ -32,7 +34,7 @@ public class RegisterUserUseCase (
         {
             Username = user.Username,
             UserRole = user.UserRole,
-            Token = user.UserIdentifier.ToString()
+            Token = accessTokenGenerator.Generate(user)
         };
     }
 
