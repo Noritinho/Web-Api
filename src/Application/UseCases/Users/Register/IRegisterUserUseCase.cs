@@ -5,5 +5,5 @@ namespace Application.UseCases.Users.Register;
 
 public interface IRegisterUserUseCase
 {
-    public ResponseRegisteredUserJson Execute(RequestRegisterUserJson request);
+    public Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request);
 }

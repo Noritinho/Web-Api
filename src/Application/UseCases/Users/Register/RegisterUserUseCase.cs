@@ -2,26 +2,31 @@ using AutoMapper;
 using Contracts.Communication.Users.Requests;
 using Contracts.Communication.Users.Responses;
 using Domain.Entities;
+using Domain.Repositories.User;
 using Exceptions.ExceptionsBase;
-using Microsoft.Extensions.Options;
 
 namespace Application.UseCases.Users.Register;
 
-public class RegisterUserUseCase(IMapper mapper) : IRegisterUserUseCase
+public class RegisterUserUseCase (
+    IMapper mapper,
+    IUserWriteOnlyRepository userWriteOnlyRepository,
+    IUnitOfWork unitOfWork) : IRegisterUserUseCase
 {
 
-    public ResponseRegisteredUserJson Execute(RequestRegisterUserJson request)
+    public async Task<ResponseRegisteredUserJson> Execute(RequestRegisterUserJson request)
     {
         Validate(request);
         
         var user = mapper.Map<User>(request);
         user.UserIdentifier = Guid.NewGuid();
 
+        await userWriteOnlyRepository.Add(user);
+        await unitOfWork.Commit();
+
         return new ResponseRegisteredUserJson
         {
             Username = user.Username,
-            UserRole = user.UserRole,
-            Token = user.UserIdentifier.ToString()
+            UserRole = user.UserRole
         };
     }
 

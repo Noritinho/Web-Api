@@ -10,4 +10,16 @@
       <PackageReference Include="MediatR" Version="12.4.0" />
     </ItemGroup>
 
+    <ItemGroup>
+      <Compile Remove="Events\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Events\**" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <None Remove="Events\**" />
+    </ItemGroup>
+
 </Project>
