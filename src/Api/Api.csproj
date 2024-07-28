@@ -17,6 +17,7 @@
     <ItemGroup>
       <Compile Remove="Controllers\**" />
       <Compile Remove="WeatherForecast.cs" />
+      <Compile Include="Controllers\LoginController.cs" />
       <Compile Include="Controllers\UsersController.cs" />
     </ItemGroup>
 

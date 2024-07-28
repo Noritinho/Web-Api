@@ -6,6 +6,7 @@ using Infrastructure.Data;
 using Infrastructure.Data.Interceptors;
 using Infrastructure.Data.Repositories;
 using Infrastructure.Security;
+using Infrastructure.Security.Cryptography;
 using Infrastructure.Security.Tokens;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;

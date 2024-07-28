@@ -34,18 +34,18 @@ public class UserRepository(FinancesDbContext dbContext) :
         return await dbContext.Users.AnyAsync(user => user.Username.Equals(username));
     }
 
-    public async Task<User?> GetUserByUsername(string username)
-    {
-        return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Username.Equals(username));
-    }
 
     public async Task<bool> ExistActiveUserWithEmail(string email)
     {
         return await dbContext.Users.AnyAsync(user => user.Email.Equals(email));
     }
 
-    public async Task<User?> GetUserByEmail(string email)
+    public async Task<User?> GetUserByUsernameOrEmail(string usernameOrEmail)
     {
-        return await dbContext.Users.AsNoTracking().FirstOrDefaultAsync(user => user.Email.Equals(email));
+        var isUsername = await dbContext.Users.AnyAsync(user => user.Username.Equals(usernameOrEmail));
+        if (isUsername) return await dbContext.Users.FirstOrDefaultAsync(user => user.Username.Equals(usernameOrEmail));
+        var isEmail = await dbContext.Users.AnyAsync(user => user.Email.Equals(usernameOrEmail));
+        if (isEmail) return await dbContext.Users.FirstOrDefaultAsync(user => user.Email.Equals(usernameOrEmail));
+        return null;
     }
 }
