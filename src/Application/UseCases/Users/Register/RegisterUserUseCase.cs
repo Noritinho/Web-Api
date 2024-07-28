@@ -26,7 +26,8 @@ public class RegisterUserUseCase (
         return new ResponseRegisteredUserJson
         {
             Username = user.Username,
-            UserRole = user.UserRole
+            UserRole = user.UserRole,
+            Token = user.UserIdentifier.ToString()
         };
     }
 
@@ -34,11 +35,9 @@ public class RegisterUserUseCase (
     {
         var result = new RegisterUserValidator().Validate(request);
 
-        if (!result.IsValid)
-        {
-            var errorMessages = result.Errors.Select(failure => failure.ErrorMessage).ToList();
+        if (result.IsValid) return;
+        var errorMessages = result.Errors.Select(failure => failure.ErrorMessage).ToList();
 
-            throw new ErrorOnValidationException(errorMessages);
-        }
+        throw new ErrorOnValidationException(errorMessages);
     }
 }
