@@ -4,6 +4,7 @@ using Contracts.Communication.Users.Responses;
 using Domain.Entities;
 using Domain.Repositories;
 using Domain.Repositories.User;
+using Domain.Security.Cryptography;
 using Exceptions.ExceptionsBase;
 
 namespace Application.UseCases.Users.Register;
@@ -12,6 +13,7 @@ public class RegisterUserUseCase (
     IMapper mapper,
     IUserWriteOnlyRepository userWriteOnlyRepository,
     IUserReadOnlyRepository userReadOnlyRepository,
+    IPasswordEncripter passwordEncripter,
     IUnitOfWork unitOfWork) : IRegisterUserUseCase
 {
 
@@ -20,6 +22,7 @@ public class RegisterUserUseCase (
         await Validate(request);
         
         var user = mapper.Map<User>(request);
+        user.Password = passwordEncripter.Encrypt(request.Password);
         user.UserIdentifier = Guid.NewGuid();
 
         await userWriteOnlyRepository.Add(user);
@@ -35,7 +38,7 @@ public class RegisterUserUseCase (
 
     private async Task Validate(RequestRegisterUserJson request)
     {
-        var result = new RegisterUserValidator().Validate(request);
+        var result = await new RegisterUserValidator().ValidateAsync(request);
 
         var usernameExist = await userReadOnlyRepository.ExistActiveUserWithUsername(request.Username);
         var emailExist = await userReadOnlyRepository.ExistActiveUserWithEmail(request.Email);

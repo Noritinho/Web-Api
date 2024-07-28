@@ -1,8 +1,10 @@
 using Domain.Repositories;
 using Domain.Repositories.User;
+using Domain.Security.Cryptography;
 using Infrastructure.Data;
 using Infrastructure.Data.Interceptors;
 using Infrastructure.Data.Repositories;
+using Infrastructure.Security;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Diagnostics;
 using Microsoft.Extensions.Configuration;
@@ -15,8 +17,9 @@ public static class DependencyInjection
     public static IServiceCollection AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         AddDbContext(services, configuration);
-        
         AddRepositories(services);
+
+        services.AddScoped<IPasswordEncripter, Cryptography>();
         
         return services;
     }
@@ -41,7 +44,7 @@ public static class DependencyInjection
         
         services.AddScoped<IUserWriteOnlyRepository, UserRepository>();
         services.AddScoped<IUserReadOnlyRepository, UserRepository>();
-        
+
         services.AddSingleton(TimeProvider.System);
     }
 }
