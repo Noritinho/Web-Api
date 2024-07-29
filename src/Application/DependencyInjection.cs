@@ -1,5 +1,6 @@
 using Application.AutoMapper;
 using Application.UseCases.Login.DoLogin;
+using Application.UseCases.Users.Profiles;
 using Application.UseCases.Users.Register;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -21,6 +22,8 @@ public static class DependencyInjection
     private static void AddUseCases(IServiceCollection services)
     {
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
+        services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
+        
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
     }
 }
