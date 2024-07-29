@@ -5,6 +5,7 @@ using Application.UseCases.Users.Register;
 using Contracts.Communication.Errors.Responses;
 using Contracts.Communication.Users.Requests;
 using Contracts.Communication.Users.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Api.Controllers;
@@ -29,6 +30,7 @@ public class UsersController : ControllerBase
     [Route("{usernameOrEmail}")]
     [ProducesResponseType(typeof(ResponseUserProfileJson), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    [Authorize]
     public async Task<IActionResult> GetUserProfile(
         [FromServices] IGetUserProfileUseCase useCase,
         [FromRoute] string usernameOrEmail)
@@ -40,6 +42,7 @@ public class UsersController : ControllerBase
     [HttpGet]
     [ProducesResponseType(typeof(ResponseUsersJson), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    [Authorize]
     public async Task<IActionResult> GetAllUsers(
         [FromServices] IGetAllUserUseCase useCase)
     {
@@ -51,6 +54,7 @@ public class UsersController : ControllerBase
     [Route("{usernameOrEmail}")]
     [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status200OK)]
     [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    [Authorize]
     public async Task<IActionResult> ChangePassword(
         [FromServices] IChangePasswordUseCase useCase,
         [FromRoute] string usernameOrEmail,
