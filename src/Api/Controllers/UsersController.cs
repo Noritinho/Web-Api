@@ -1,3 +1,4 @@
+using Application.UseCases.Users.GetAll;
 using Application.UseCases.Users.Profiles;
 using Application.UseCases.Users.Register;
 using Contracts.Communication.Errors.Responses;
@@ -32,6 +33,16 @@ public class UsersController : ControllerBase
         [FromRoute] string usernameOrEmail)
     {
         var response = await useCase.Execute(usernameOrEmail);
+        return Ok(response);
+    }
+    
+    [HttpGet]
+    [ProducesResponseType(typeof(ResponseUsersJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> GetAllUsers(
+        [FromServices] IGetAllUserUseCase useCase)
+    {
+        var response = await useCase.Execute();
         return Ok(response);
     }
 }
