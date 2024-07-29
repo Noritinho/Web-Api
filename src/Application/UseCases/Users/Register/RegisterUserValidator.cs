@@ -10,7 +10,7 @@ public class RegisterUserValidator : AbstractValidator<RequestRegisterUserJson>
         RuleFor(user => user.Username).NotEmpty().WithMessage("Username cannot be empty")
             .MinimumLength(3).WithMessage("Username must be at least 3 characters long")
             .MaximumLength(20).WithMessage("Username must be at most 20 characters long")
-            .Matches("^[a-zA-Z0-9]+$").WithMessage("Username can only contain letters and numbers");
+            .Matches("^[a-zA-Z0-9._]+$").WithMessage("Username can only contain letters and numbers");
 
         RuleFor(user => user.Email).NotEmpty().WithMessage("Email cannot be empty")
             .Matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$").WithMessage("Email must be a valid email address");
