@@ -1,3 +1,4 @@
+using Application.UseCases.Users.ChangePassword;
 using Application.UseCases.Users.GetAll;
 using Application.UseCases.Users.Profiles;
 using Application.UseCases.Users.Register;
@@ -44,5 +45,18 @@ public class UsersController : ControllerBase
     {
         var response = await useCase.Execute();
         return Ok(response);
+    }
+    
+    [HttpPut]
+    [Route("{usernameOrEmail}")]
+    [ProducesResponseType(typeof(ResponseRegisteredUserJson), StatusCodes.Status200OK)]
+    [ProducesResponseType(typeof(ResponseErrorJson), StatusCodes.Status404NotFound)]
+    public async Task<IActionResult> ChangePassword(
+        [FromServices] IChangePasswordUseCase useCase,
+        [FromRoute] string usernameOrEmail,
+        [FromBody] RequestChangePasswordJson request)
+    {
+        await useCase.Execute(request, usernameOrEmail);
+        return Ok();
     }
 }

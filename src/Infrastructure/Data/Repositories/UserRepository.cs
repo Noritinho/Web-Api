@@ -13,6 +13,11 @@ public class UserRepository(FinancesDbContext dbContext) :
         await dbContext.Users.AddAsync(user);
     }
 
+    public void Update(User user)
+    {
+        dbContext.Users.Update(user);
+    }
+
 
     public async Task<List<User>> GetAllUsers()
     {

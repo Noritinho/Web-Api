@@ -1,5 +1,6 @@
 using Application.AutoMapper;
 using Application.UseCases.Login.DoLogin;
+using Application.UseCases.Users.ChangePassword;
 using Application.UseCases.Users.GetAll;
 using Application.UseCases.Users.Profiles;
 using Application.UseCases.Users.Register;
@@ -25,6 +26,7 @@ public static class DependencyInjection
         services.AddScoped<IRegisterUserUseCase, RegisterUserUseCase>();
         services.AddScoped<IGetUserProfileUseCase, GetUserProfileUseCase>();
         services.AddScoped<IGetAllUserUseCase, GetAllUserUseCase>();
+        services.AddScoped<IChangePasswordUseCase, ChangePasswordUseCase>();
         
         services.AddScoped<IDoLoginUseCase, DoLoginUseCase>();
     }
