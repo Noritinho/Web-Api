@@ -1,4 +1,5 @@
 using Contracts.Communication.Users.Requests;
+using Exceptions.Resources;
 using FluentValidation;
 
 namespace Application.UseCases.Users.ChangePassword;
@@ -7,10 +8,12 @@ public class ChangePasswordValidator : AbstractValidator<RequestChangePasswordJs
 {
     public ChangePasswordValidator()
     {
-        RuleFor(user => user.NewPassword).NotEmpty().WithMessage("Password cannot be empty")
-            .MinimumLength(8).WithMessage("Password must be at least 8 characters long")
-            .MaximumLength(50).WithMessage("Password must be at most 20 characters long")
-            .Matches("^(?=.*\\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$").WithMessage(
-                "Password must contain at least one uppercase letter, one lowercase letter, and one number");
+        RuleFor(user => user.NewPassword)
+            .NotEmpty().WithMessage(UsersResourceErrorMessages.PASSWORD_EMPTY)
+            .MinimumLength(8).WithMessage(UsersResourceErrorMessages.PASSWORD_LENGHT)
+            .MaximumLength(50).WithMessage(UsersResourceErrorMessages.PASSWORD_LENGHT)
+            .Matches(@"^(?=.*[a-z])(?=.*[A-Z])").WithMessage(UsersResourceErrorMessages.PASSWORD_INVALID)
+            .Matches(@"(?=.*\d.*\d)").WithMessage(UsersResourceErrorMessages.PASSWORD_INVALID)
+            .Matches(@"(?=.*[@$!%*?&])").WithMessage(UsersResourceErrorMessages.PASSWORD_INVALID);
     }
 }

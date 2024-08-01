@@ -7,6 +7,7 @@ using Domain.Repositories.User;
 using Domain.Security.Cryptography;
 using Domain.Security.Tokens;
 using Exceptions.ExceptionsBase;
+using Exceptions.Resources;
 
 namespace Application.UseCases.Users.Register;
 
@@ -45,8 +46,8 @@ public class RegisterUserUseCase (
         var usernameExist = await userReadOnlyRepository.ExistActiveUserWithUsername(request.Username);
         var emailExist = await userReadOnlyRepository.ExistActiveUserWithEmail(request.Email);
         
-        if (usernameExist) result.Errors.Add(new FluentValidation.Results.ValidationFailure(nameof(request.Username), "Username already exists"));
-        if (emailExist) result.Errors.Add(new FluentValidation.Results.ValidationFailure(nameof(request.Email), "Email already exists"));
+        if (usernameExist) result.Errors.Add(new FluentValidation.Results.ValidationFailure(nameof(request.Username), UsersResourceErrorMessages.USERNAME_ALREADY_EXISTS));
+        if (emailExist) result.Errors.Add(new FluentValidation.Results.ValidationFailure(nameof(request.Email), UsersResourceErrorMessages.EMAIL_ALREADY_EXISTS));
 
         if (result.IsValid) return;
         var errorMessages = result.Errors.Select(failure => failure.ErrorMessage).ToList();

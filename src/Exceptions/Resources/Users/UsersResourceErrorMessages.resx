@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<root>
+    <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+        <xsd:element name="root" msdata:IsDataSet="true">
+            
+        </xsd:element>
+    </xsd:schema>
+    <resheader name="resmimetype">
+        <value>text/microsoft-resx</value>
+    </resheader>
+    <resheader name="version">
+        <value>1.3</value>
+    </resheader>
+    <resheader name="reader">
+        <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <resheader name="writer">
+        <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=2.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+    </resheader>
+    <data name="USERNAME_EMPTY" xml:space="preserve">
+        <value>The Username cannot be empty</value>
+    </data>
+    <data name="USERNAME_INVALID" xml:space="preserve">
+        <value>The Username is invalid. Can have only letters, numbers or ._</value>
+    </data>
+    <data name="USERNAME_LENGHT" xml:space="preserve">
+        <value>The Username must be at least 3 characters long and be at most 20 characters</value>
+    </data>
+    <data name="EMAIL_EMPTY" xml:space="preserve">
+        <value>The E-mail cannot be empty</value>
+    </data>
+    <data name="EMAIL_INVALID" xml:space="preserve">
+        <value>The E-mail is invalid</value>
+    </data>
+    <data name="PASSWORD_EMPTY" xml:space="preserve">
+        <value>The Password cannot be empty</value>
+    </data>
+    <data name="PASSWORD_LENGHT" xml:space="preserve">
+        <value>The password must be at least 8 characters long and be at most 50 characters</value>
+    </data>
+    <data name="PASSWORD_INVALID" xml:space="preserve">
+        <value>Password must contain at least one uppercase letter, one lowercase letter, two numbers and one symbol</value>
+    </data>
+    <data name="USER_ROLE_EMPTY" xml:space="preserve">
+        <value>The User Role cannot be empty</value>
+    </data>
+    <data name="USER_ROLE_INVALID" xml:space="preserve">
+        <value>The UserRole must be 'admin' or 'user'</value>
+    </data>
+    <data name="USERNAME_ALREADY_EXISTS" xml:space="preserve">
+        <value>The Username already exists</value>
+    </data>
+    <data name="EMAIL_ALREADY_EXISTS" xml:space="preserve">
+        <value>The E-mail already exists</value>
+    </data>
+</root>
