@@ -67,6 +67,22 @@ public class RegisterUserValidatorTest
         result.Errors.Should().Contain(e => e.ErrorMessage.Equals(UsersResourceErrorMessages.PASSWORD_EMPTY));
     }
     
+    [Theory]
+    [InlineData("")]
+    [InlineData(" ")]
+    [InlineData(null)]
+    public void Error_User_Role_Empty(string userRole)
+    {
+        var validator = new RegisterUserValidator();
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.UserRole = userRole;
+        
+        var result = validator.Validate(request);
+        
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().Contain(e => e.ErrorMessage.Equals(UsersResourceErrorMessages.USER_ROLE_EMPTY));
+    }
+    
     [Fact]
     public void Error_Email_Invalid()
     {
@@ -134,5 +150,18 @@ public class RegisterUserValidatorTest
         
         result.IsValid.Should().BeFalse();
         result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(UsersResourceErrorMessages.PASSWORD_INVALID));
+    }
+    
+    [Fact]
+    public void Error_User_Role_Invalid()
+    {
+        var validator = new RegisterUserValidator();
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.UserRole = "adm";
+        
+        var result = validator.Validate(request);
+        
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(UsersResourceErrorMessages.USER_ROLE_INVALID));
     }
 }

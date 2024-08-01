@@ -11,7 +11,7 @@ public class RegisterUserValidator : AbstractValidator<RequestRegisterUserJson>
         RuleFor(user => user.Username).NotEmpty().WithMessage(UsersResourceErrorMessages.USERNAME_EMPTY)
             .MinimumLength(3).WithMessage(UsersResourceErrorMessages.USERNAME_LENGHT)
             .MaximumLength(20).WithMessage(UsersResourceErrorMessages.USERNAME_LENGHT)
-            .Matches("^[a-zA-Z0-9._]+$").WithMessage(UsersResourceErrorMessages.USERNAME_INVALID);
+            .Matches("^[a-zA-Z0-9._@#$%&*!]+$").WithMessage(UsersResourceErrorMessages.USERNAME_INVALID);
 
         RuleFor(user => user.Email).NotEmpty().WithMessage(UsersResourceErrorMessages.EMAIL_EMPTY)
             .Matches("^[\\w-\\.]+@([\\w-]+\\.)+[\\w-]{2,4}$").WithMessage(UsersResourceErrorMessages.EMAIL_INVALID);
