@@ -84,19 +84,6 @@ public class RegisterUserValidatorTest
     }
     
     [Fact]
-    public void Error_Email_Invalid()
-    {
-        var validator = new RegisterUserValidator();
-        var request = RequestRegisterUserJsonBuilder.Build();
-        request.Email = "marcelo.com.br";
-        
-        var result = validator.Validate(request);
-        
-        result.IsValid.Should().BeFalse();
-        result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(UsersResourceErrorMessages.EMAIL_INVALID));
-    }
-    
-    [Fact]
     public void Error_Username_Invalid()
     {
         var validator = new RegisterUserValidator();
@@ -110,29 +97,16 @@ public class RegisterUserValidatorTest
     }
     
     [Fact]
-    public void Error_Username_Invalid_Lenght()
+    public void Error_Email_Invalid()
     {
         var validator = new RegisterUserValidator();
         var request = RequestRegisterUserJsonBuilder.Build();
-        request.Username = "ma";
+        request.Email = "marcelo.com.br";
         
         var result = validator.Validate(request);
         
         result.IsValid.Should().BeFalse();
-        result.Errors.Should().Contain(e => e.ErrorMessage.Equals(UsersResourceErrorMessages.USERNAME_LENGHT));
-    }
-    
-    [Fact]
-    public void Error_Password_Lenght()
-    {
-        var validator = new RegisterUserValidator();
-        var request = RequestRegisterUserJsonBuilder.Build();
-        request.Password = "Aa!12";
-        
-        var result = validator.Validate(request);
-        
-        result.IsValid.Should().BeFalse();
-        result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(UsersResourceErrorMessages.PASSWORD_LENGHT));
+        result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(UsersResourceErrorMessages.EMAIL_INVALID));
     }
     
     [Theory]
@@ -163,5 +137,31 @@ public class RegisterUserValidatorTest
         
         result.IsValid.Should().BeFalse();
         result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(UsersResourceErrorMessages.USER_ROLE_INVALID));
+    }
+    
+    [Fact]
+    public void Error_Username_Invalid_Lenght()
+    {
+        var validator = new RegisterUserValidator();
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Username = "ma";
+        
+        var result = validator.Validate(request);
+        
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().Contain(e => e.ErrorMessage.Equals(UsersResourceErrorMessages.USERNAME_LENGHT));
+    }
+    
+    [Fact]
+    public void Error_Password_Lenght()
+    {
+        var validator = new RegisterUserValidator();
+        var request = RequestRegisterUserJsonBuilder.Build();
+        request.Password = "Aa!12";
+        
+        var result = validator.Validate(request);
+        
+        result.IsValid.Should().BeFalse();
+        result.Errors.Should().ContainSingle().And.Contain(e => e.ErrorMessage.Equals(UsersResourceErrorMessages.PASSWORD_LENGHT));
     }
 }

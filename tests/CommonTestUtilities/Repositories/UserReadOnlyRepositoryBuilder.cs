@@ -3,12 +3,22 @@ using Moq;
 
 namespace CommonTestUtilities.Repositories;
 
-public abstract class UserReadOnlyRepositoryBuilder
+public class UserReadOnlyRepositoryBuilder
 {
-    private static readonly Mock<IUserReadOnlyRepository> Repository = new();
+    private readonly Mock<IUserReadOnlyRepository> _repository = new();
 
-    public static IUserReadOnlyRepository Build()
+    public IUserReadOnlyRepository Build()
     {
-        return Repository.Object;
+        return _repository.Object;
+    }
+    
+    public void ExistActiveUserWithEmail(string email)
+    {
+        _repository.Setup(userReadOnly => userReadOnly.ExistActiveUserWithEmail(email)).ReturnsAsync(true);
+    }
+    
+    public void ExistActiveUserWithUsername(string username)
+    {
+        _repository.Setup(userReadOnly => userReadOnly.ExistActiveUserWithUsername(username)).ReturnsAsync(true);
     }
 }
