@@ -23,8 +23,7 @@ public class RegisterUserValidator : AbstractValidator<RequestRegisterUserJson>
             .Matches(@"^(?=.*[a-z])(?=.*[A-Z])").WithMessage(UsersResourceErrorMessages.PASSWORD_INVALID)
             .Matches(@"(?=.*\d.*\d)").WithMessage(UsersResourceErrorMessages.PASSWORD_INVALID)
             .Matches(@"(?=.*[@$!%*?&])").WithMessage(UsersResourceErrorMessages.PASSWORD_INVALID);
-        
-        RuleFor(user => user.UserRole).NotEmpty().WithMessage(UsersResourceErrorMessages.USER_ROLE_EMPTY)
-            .Matches("^(admin|user)$").WithMessage(UsersResourceErrorMessages.USER_ROLE_INVALID);
+
+        RuleFor(user => user.UserRole).IsInEnum().WithMessage(UsersResourceErrorMessages.USER_ROLE_INVALID);
     }
 }

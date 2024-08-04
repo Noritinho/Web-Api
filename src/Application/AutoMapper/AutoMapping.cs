@@ -21,6 +21,7 @@ public class AutoMapping : Profile
     
     private void EntityToResponse()
     {
+        CreateMap<User, ResponseRegisteredUserJson>();
         CreateMap<User, ResponseUserProfileJson>();
         CreateMap<User, ResponseShortUserProfile>();
     }

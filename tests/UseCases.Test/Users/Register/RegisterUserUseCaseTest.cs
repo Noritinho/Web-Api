@@ -4,6 +4,7 @@ using CommonTestUtilities.Mapper;
 using CommonTestUtilities.Repositories;
 using CommonTestUtilities.Requests;
 using CommonTestUtilities.Token;
+using Contracts.Enums;
 using Exceptions.ExceptionsBase;
 using Exceptions.Resources;
 using FluentAssertions;
@@ -68,20 +69,6 @@ public class RegisterUserUseCaseTest
     }
     
     [Fact]
-    public async Task Error_User_Role_Empty()
-    {
-        var request = RequestRegisterUserJsonBuilder.Build();
-        request.UserRole = string.Empty;
-        
-        var useCase = CreateUseCase();
-        var act = async () => await useCase.Execute(request);
-        var result = await act.Should().ThrowAsync<ErrorOnValidationException>();
-
-        result.Where(
-            exception =>  exception.GetErrors().Contains(UsersResourceErrorMessages.USER_ROLE_EMPTY));
-    }
-    
-    [Fact]
     public async Task Error_Username_Invalid()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
@@ -131,7 +118,7 @@ public class RegisterUserUseCaseTest
     public async Task Error_User_Role_Invalid()
     {
         var request = RequestRegisterUserJsonBuilder.Build();
-        request.UserRole = "ademi";
+        request.UserRole = (UserRole)3;
         
         var useCase = CreateUseCase();
         var act = async () => await useCase.Execute(request);

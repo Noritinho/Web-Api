@@ -53,9 +53,8 @@ namespace Infrastructure.Data.Migrations
                     b.Property<Guid>("UserIdentifier")
                         .HasColumnType("uuid");
 
-                    b.Property<string>("UserRole")
-                        .IsRequired()
-                        .HasColumnType("text");
+                    b.Property<int>("UserRole")
+                        .HasColumnType("integer");
 
                     b.Property<string>("Username")
                         .IsRequired()

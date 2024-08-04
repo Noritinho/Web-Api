@@ -9,6 +9,11 @@
     <ItemGroup>
       <Compile Remove="Class1.cs" />
       <Compile Remove="src\**" />
+      <Compile Remove="Data\Migrations\20240727011117_User.cs" />
+      <Compile Remove="Data\Migrations\20240727011117_User.Designer.cs" />
+      <Compile Remove="Data\Migrations\20240728015939_User00001.cs" />
+      <Compile Remove="Data\Migrations\20240728015939_User00001.Designer.cs" />
+      <Compile Remove="Data\Migrations\FinancesDbContextModelSnapshot.cs" />
     </ItemGroup>
 
     <ItemGroup>

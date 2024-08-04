@@ -34,7 +34,6 @@ public class RegisterUserUseCase (
         return new ResponseRegisteredUserJson
         {
             Username = user.Username,
-            UserRole = user.UserRole,
             Token = accessTokenGenerator.Generate(user)
         };
     }
