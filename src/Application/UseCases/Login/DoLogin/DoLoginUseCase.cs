@@ -8,7 +8,7 @@ namespace Application.UseCases.Login.DoLogin;
 
 public class DoLoginUseCase(
     IUserReadOnlyRepository userReadOnlyRepository,
-    IPasswordEncripter passwordEncripter,
+    IPasswordEncrypter passwordEncrypter,
     IAccessTokenGenerator accessTokenGenerator) : IDoLoginUseCase
 {
     public async Task<ResponseRegisteredUserJson> Execute(RequestLoginJson request)
@@ -20,7 +20,7 @@ public class DoLoginUseCase(
             throw new Exception("User not found");
         }
         
-        var passwordMatch = passwordEncripter.Verify(request.Password, user.Password);
+        var passwordMatch = passwordEncrypter.Verify(request.Password, user.Password);
 
         if (!passwordMatch)
         {

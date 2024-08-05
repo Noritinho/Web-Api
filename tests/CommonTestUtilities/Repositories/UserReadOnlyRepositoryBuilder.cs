@@ -1,3 +1,4 @@
+using Domain.Entities;
 using Domain.Repositories.User;
 using Moq;
 
@@ -10,6 +11,15 @@ public class UserReadOnlyRepositoryBuilder
     public IUserReadOnlyRepository Build()
     {
         return _repository.Object;
+    }
+
+    public UserReadOnlyRepositoryBuilder GetUserByUsernameOrEmail(User user)
+    {
+        _repository
+            .Setup(userReadOnly => userReadOnly.GetUserByUsernameOrEmail(user.Username))
+            .ReturnsAsync(user);
+
+        return this;
     }
     
     public void ExistActiveUserWithEmail(string email)

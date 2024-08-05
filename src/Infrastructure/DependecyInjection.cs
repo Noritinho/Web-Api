@@ -23,7 +23,7 @@ public static class DependencyInjection
         AddToken(services, configuration);
         AddRepositories(services);
 
-        services.AddScoped<IPasswordEncripter, Cryptography>();
+        services.AddScoped<IPasswordEncrypter, Cryptography>();
         
         return services;
     }

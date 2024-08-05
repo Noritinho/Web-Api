@@ -2,7 +2,7 @@ using Domain.Security.Cryptography;
 
 namespace Infrastructure.Security.Cryptography;
 
-public class Cryptography : IPasswordEncripter
+public class Cryptography : IPasswordEncrypter
 {
     public string Encrypt(string password)
     {

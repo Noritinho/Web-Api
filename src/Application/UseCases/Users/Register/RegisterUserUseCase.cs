@@ -15,7 +15,7 @@ public class RegisterUserUseCase (
     IMapper mapper,
     IUserWriteOnlyRepository userWriteOnlyRepository,
     IUserReadOnlyRepository userReadOnlyRepository,
-    IPasswordEncripter passwordEncripter,
+    IPasswordEncrypter passwordEncrypter,
     IAccessTokenGenerator accessTokenGenerator,
     IUnitOfWork unitOfWork) : IRegisterUserUseCase
 {
@@ -25,7 +25,7 @@ public class RegisterUserUseCase (
         await Validate(request);
         
         var user = mapper.Map<User>(request);
-        user.Password = passwordEncripter.Encrypt(request.Password);
+        user.Password = passwordEncrypter.Encrypt(request.Password);
         user.UserIdentifier = Guid.NewGuid();
 
         await userWriteOnlyRepository.Add(user);

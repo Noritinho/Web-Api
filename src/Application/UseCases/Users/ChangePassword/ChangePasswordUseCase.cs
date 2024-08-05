@@ -8,7 +8,7 @@ using Exceptions.ExceptionsBase;
 namespace Application.UseCases.Users.ChangePassword;
 
 public class ChangePasswordUseCase(
-    IPasswordEncripter passwordEncripter,
+    IPasswordEncrypter passwordEncrypter,
     IUserReadOnlyRepository userReadOnlyRepository,
     IUserWriteOnlyRepository userWriteOnlyRepository,
     IUnitOfWork unitOfWork) : IChangePasswordUseCase
@@ -18,7 +18,7 @@ public class ChangePasswordUseCase(
         var user = await userReadOnlyRepository.GetUserByUsernameOrEmail(request.UsernameOrEmail);
         Validate(request, user!);
 
-        user!.Password = passwordEncripter.Encrypt(request.NewPassword);
+        user!.Password = passwordEncrypter.Encrypt(request.NewPassword);
         userWriteOnlyRepository.Update(user);
         
         await unitOfWork.Commit();
@@ -28,7 +28,7 @@ public class ChangePasswordUseCase(
     {
         var validator = new ChangePasswordValidator();
         var result = validator.Validate(request);
-        var passwordMatch = passwordEncripter.Verify(request.Password, user.Password);
+        var passwordMatch = passwordEncrypter.Verify(request.Password, user.Password);
         
         if (!passwordMatch)
         {
